@@ -71,10 +71,12 @@ func handleProxy(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			if err != nil {
-				log.Fatalf("nextreader: %v", err)
+				log.Errorf("nextreader: %v", err)
+				return
 			}
 			if mt != websocket.BinaryMessage {
-				log.Fatal("blah")
+				log.Error("not binary message")
+				return
 			}
 			if _, err := io.Copy(s, r); err != nil {
 				log.Printf("Reading from websocket: %v", err)
